@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root { --accent: #666; }
+        body {
+            margin: 0;
+            background: black;
+            color: white;
+            font-family: sans-serif;
+        }
+        #header {
+            padding: 20px;
+            border-bottom: 1px solid var(--accent);
+            position: relative;
+        }
+        #accent {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            height: 40px;
+            opacity: 0.5;
+        }
+        .album-btn {
+            background: none;
+            border: 1px solid var(--accent);
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        .gallery-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border: 1px solid var(--accent);
+        }
+        @media (max-width: 600px) {
+            #header h1 { font-size: 1.5rem; }
+            .album-btn { padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Ori's Gallery</h1>
+        <img id="accent" src="images/funny.png" alt="accent">
+    </div>
+
+    <nav style="text-align: center; margin: 20px 0">
+        <button class="album-btn" data-album="nature">Nature</button>
+        <button class="album-btn" data-album="urban">Urban</button>
+        <button class="album-btn" data-album="abstract">Abstract</button>
+    </nav>
+
+    <div id="gallery"></div>
+
+    <script>
+        function loadAlbum(albumName) {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            // Replace with your actual image paths (e.g., "nature/img1.jpg")
+            for(let i = 1; i <= 9; i++) {
+                const img = document.createElement('img');
+                img.className = 'gallery-img';
+                img.src = `${albumName}/image${i}.jpg`;
+                img.alt = `Album photo ${i}`;
+                gallery.appendChild(img);
+            }
+        }
+
+        document.querySelectorAll('.album-btn').forEach(btn => {
+            btn.addEventListener('click', () => loadAlbum(btn.dataset.album));
+        });
+
+        // Load first album initially
+        loadAlbum('nature');
+    </script>
+</body>
+</html>
